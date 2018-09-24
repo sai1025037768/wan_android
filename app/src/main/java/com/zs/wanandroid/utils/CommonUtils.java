@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zs.wanandroid.R;
+import com.zs.wanandroid.app.Constants;
 import com.zs.wanandroid.app.WanAndroidApp;
 
 import java.io.BufferedReader;
@@ -19,9 +21,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 
-import json.chao.com.wanandroid.R;
-import json.chao.com.wanandroid.app.Constants;
-import json.chao.com.wanandroid.app.WanAndroidApp;
 
 /**
  * @author quchao

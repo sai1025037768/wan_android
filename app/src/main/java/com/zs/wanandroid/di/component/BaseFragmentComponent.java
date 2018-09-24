@@ -1,5 +1,7 @@
 package com.zs.wanandroid.di.component;
 
+import com.zs.wanandroid.base.fragment.BaseFragment;
+
 import dagger.Subcomponent;
 import dagger.android.AndroidInjectionModule;
 import dagger.android.AndroidInjector;

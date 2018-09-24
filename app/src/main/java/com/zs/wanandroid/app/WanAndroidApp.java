@@ -3,10 +3,12 @@ package com.zs.wanandroid.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.v4.content.ContextCompat;
 
+import com.facebook.stetho.Stetho;
 import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -15,7 +17,12 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
+import com.zs.wanandroid.BuildConfig;
 import com.zs.wanandroid.R;
+import com.zs.wanandroid.core.dao.DaoMaster;
+import com.zs.wanandroid.core.dao.DaoSession;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -53,8 +60,16 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
         });
     }
 
-    public synchronized static WanAndroidApp newInstance() {
+    private RefWatcher refWatcher;
+    private DaoSession mDaoSession;
+
+    public synchronized static WanAndroidApp getInstance() {
         return instance;
+    }
+
+    public static RefWatcher getRefWatcher(Context context){
+        WanAndroidApp application = (WanAndroidApp) context.getApplicationContext();
+        return application.refWatcher;
     }
 
     @Override
@@ -66,7 +81,37 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
-        Daggera
+
+        instance = this;
+
+        initGreenDao();
+
+        initLogger();
+
+        if(BuildConfig.DEBUG){
+            Stetho.initializeWithDefaults(this);
+        }
+
+        if(LeakCanary.isInAnalyzerProcess(this)){
+            return;
+        }
+
+        refWatcher = LeakCanary.install(this);
+    }
+
+    private void initLogger() {
+
+    }
+
+    private void initGreenDao() {
+        DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(this, Constants.DB_NAME);
+        SQLiteDatabase database = devOpenHelper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(database);
+        mDaoSession = daoMaster.newSession();
+    }
+
+    public DaoSession getDaoSession() {
+        return mDaoSession;
     }
 
     @Override
