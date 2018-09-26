@@ -23,6 +23,7 @@ import com.zs.wanandroid.BuildConfig;
 import com.zs.wanandroid.R;
 import com.zs.wanandroid.core.dao.DaoMaster;
 import com.zs.wanandroid.core.dao.DaoSession;
+import com.zs.wanandroid.di.component.AppComponent;
 import com.zs.wanandroid.di.component.DaggerAppComponent;
 import com.zs.wanandroid.di.module.AppModule;
 import com.zs.wanandroid.di.module.HttpModule;
@@ -42,6 +43,7 @@ import dagger.android.HasActivityInjector;
 public class WanAndroidApp extends Application implements HasActivityInjector {
 
     private static WanAndroidApp instance;
+    private static AppComponent appComponent;
 
     @Inject
     DispatchingAndroidInjector<Activity> mActivityDispatchingAndroidInjector;
@@ -91,7 +93,8 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
 
         DaggerAppComponent.builder().appModule(new AppModule(this))
                 .httpModule(new HttpModule())
-                .build().inject(this);
+                .build()
+                .inject(this);
 
         instance = this;
 
@@ -124,6 +127,19 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
     public DaoSession getDaoSession() {
         return mDaoSession;
     }
+
+
+    public static synchronized AppComponent getAppComponent(){
+        if(appComponent == null){
+            appComponent = DaggerAppComponent.builder()
+                    .appModule(new AppModule(instance))
+                    .httpModule(new HttpModule())
+                    .build();
+        }
+
+        return appComponent;
+    }
+
 
     @Override
     public AndroidInjector<Activity> activityInjector() {
