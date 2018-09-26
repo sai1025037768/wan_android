@@ -6,10 +6,6 @@ import dagger.Subcomponent;
 import dagger.android.AndroidInjectionModule;
 import dagger.android.AndroidInjector;
 
-/**
- * @author quchao
- * @date 2018/5/3
- */
 
 @Subcomponent(modules = {AndroidInjectionModule.class})
 public interface BaseFragmentComponent extends AndroidInjector<BaseFragment> {

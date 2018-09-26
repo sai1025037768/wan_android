@@ -23,6 +23,11 @@ import com.zs.wanandroid.BuildConfig;
 import com.zs.wanandroid.R;
 import com.zs.wanandroid.core.dao.DaoMaster;
 import com.zs.wanandroid.core.dao.DaoSession;
+import com.zs.wanandroid.di.component.DaggerAppComponent;
+import com.zs.wanandroid.di.module.AppModule;
+import com.zs.wanandroid.di.module.HttpModule;
+
+import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -37,6 +42,8 @@ import dagger.android.HasActivityInjector;
 public class WanAndroidApp extends Application implements HasActivityInjector {
 
     private static WanAndroidApp instance;
+
+    @Inject
     DispatchingAndroidInjector<Activity> mActivityDispatchingAndroidInjector;
 
     //static 代码段可以防止内存泄露, 全局设置刷新头部及尾部，优先级最低
@@ -81,6 +88,10 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        DaggerAppComponent.builder().appModule(new AppModule(this))
+                .httpModule(new HttpModule())
+                .build().inject(this);
 
         instance = this;
 

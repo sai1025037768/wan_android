@@ -148,6 +148,7 @@ public class CommonUtils {
         if (position < 0) {
             position = -position;
         }
+
         return Constants.TAB_COLORS[position];
     }
 

@@ -4,6 +4,7 @@ package com.zs.wanandroid.di.component;
 import com.zs.wanandroid.app.WanAndroidApp;
 import com.zs.wanandroid.core.DataManager;
 import com.zs.wanandroid.di.module.AppModule;
+import com.zs.wanandroid.di.module.HttpModule;
 
 
 import javax.inject.Singleton;
@@ -21,7 +22,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Singleton
 @Component(modules = {AndroidInjectionModule.class,
         AndroidSupportInjectionModule.class,
-        AppModule.class
+        AppModule.class,
+        HttpModule.class
         })
 public interface AppComponent {
 

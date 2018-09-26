@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import com.zs.wanandroid.base.presenter.AbstractPresenter;
 import com.zs.wanandroid.base.view.AbstractView;
 
+import javax.inject.Inject;
+
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -21,8 +23,11 @@ import dagger.android.support.HasSupportFragmentInjector;
 public class BaseActivity<T extends AbstractPresenter> extends AbstractSimpleActivity
         implements AbstractView, HasSupportFragmentInjector {
 
-    private DispatchingAndroidInjector<Fragment> mFragmentDispatchingAndroidInjector;
-    private T mPresenter;
+    @Inject
+    DispatchingAndroidInjector<Fragment> mFragmentDispatchingAndroidInjector;
+
+    @Inject
+    T mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
