@@ -5,6 +5,7 @@ import com.zs.wanandroid.core.bean.login.LoginData;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 
@@ -25,6 +26,7 @@ public interface GeeksApi {
      * @param password
      * @return
      */
+    @FormUrlEncoded
     @POST("/user/login")
     Observable<BaseResponse<LoginData>> userLogin(@Field("username") String username,
                                                   @Field("password") String password);
@@ -37,6 +39,7 @@ public interface GeeksApi {
      * @param repassword
      * @return
      */
+    @FormUrlEncoded
     @POST("/user/register")
     Observable<BaseResponse<LoginData>> userRegister(@Field("username") String username,
                                                      @Field("password") String password,

@@ -102,4 +102,19 @@ public class LoginData {
     public void setCollectIds(List<Integer> collectIds) {
         this.collectIds = collectIds;
     }
+
+
+    @Override
+    public String toString() {
+        return "LoginData{" +
+                "username='" + username + '\'' +
+                ", type=" + type +
+                ", token='" + token + '\'' +
+                ", password='" + password + '\'' +
+                ", id=" + id +
+                ", icon='" + icon + '\'' +
+                ", email='" + email + '\'' +
+                ", collectIds=" + collectIds +
+                '}';
+    }
 }

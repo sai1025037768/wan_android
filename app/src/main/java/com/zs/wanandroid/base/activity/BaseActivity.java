@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 
 import com.zs.wanandroid.base.presenter.AbstractPresenter;
 import com.zs.wanandroid.base.view.AbstractView;
+import com.zs.wanandroid.utils.CommonUtils;
 
 import javax.inject.Inject;
 
@@ -27,7 +28,7 @@ public class BaseActivity<T extends AbstractPresenter> extends AbstractSimpleAct
     DispatchingAndroidInjector<Fragment> mFragmentDispatchingAndroidInjector;
 
     @Inject
-    T mPresenter;
+    protected T mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -124,7 +125,7 @@ public class BaseActivity<T extends AbstractPresenter> extends AbstractSimpleAct
 
     @Override
     public void showSnackBar(String message) {
-
+        CommonUtils.showSnackMessage(this, message);
     }
 
     @Override

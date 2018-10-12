@@ -52,4 +52,16 @@ public abstract class AbstractSimpleActivity extends SupportActivity {
      * @return
      */
     public abstract int getLayoutId();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.getInstance().removeActivity(this);
+
+        if(unbinder != null && unbinder != Unbinder.EMPTY){
+            unbinder.unbind();
+            unbinder = null;
+        }
+
+    }
 }

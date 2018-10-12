@@ -21,24 +21,23 @@ import org.robolectric.shadows.ShadowLog;
 public class BasePresenterTest {
 
     @Rule
-    MyRule myRule = new MyRule();
+    public MyRule myRule = new MyRule();
 
     @Rule
-    RxJavaRule rxJavaRule = new RxJavaRule();
+    public RxJavaRule rxJavaRule = new RxJavaRule();
 
     @Rule
-    RxJavaSchedulerRule rxJavaSchedulerRule = new RxJavaSchedulerRule();
+    public RxJavaSchedulerRule rxJavaSchedulerRule = new RxJavaSchedulerRule();
 
     @Rule
-    MockitoRule mockitoRule = MockitoJUnit.rule();
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
     protected LoginContract.View mView;
 
-    protected LoginPresenter mPresenter;
-    private Application mApplication;
-    private DataManager mDataManager;
-    private LoginPresenter mLoginPresenter;
+    protected LoginPresenter mLoginPresenter;
+    protected Application mApplication;
+    protected DataManager mDataManager;
 
     @Before
     public void setup(){
@@ -51,6 +50,6 @@ public class BasePresenterTest {
     }
 
     public void login(){
-        mLoginPresenter.userLogin("1025037768@qq.com", "sai20090360331");
+        mLoginPresenter.userLogin("1025037768", "sai20090360331");
     }
 }

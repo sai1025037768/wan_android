@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.v4.content.ContextCompat;
 
-import com.facebook.stetho.Stetho;
 import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -19,7 +18,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
-import com.zs.wanandroid.BuildConfig;
 import com.zs.wanandroid.R;
 import com.zs.wanandroid.core.dao.DaoMaster;
 import com.zs.wanandroid.core.dao.DaoSession;
@@ -44,6 +42,7 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
 
     private static WanAndroidApp instance;
     private static AppComponent appComponent;
+    public static boolean isFirstRun = true;
 
     @Inject
     DispatchingAndroidInjector<Activity> mActivityDispatchingAndroidInjector;
@@ -102,9 +101,9 @@ public class WanAndroidApp extends Application implements HasActivityInjector {
 
         initLogger();
 
-        if(BuildConfig.DEBUG){
-            Stetho.initializeWithDefaults(this);
-        }
+//        if(BuildConfig.DEBUG){
+//            Stetho.initializeWithDefaults(this);
+//        }
 
         if(LeakCanary.isInAnalyzerProcess(this)){
             return;
